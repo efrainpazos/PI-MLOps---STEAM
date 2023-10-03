@@ -20,3 +20,4 @@ Se creo una API mediante la librería FastApi, que permitió mediante la creaci�
 ### Deployement en Henry
 Ya con el script de la API en un archivo main.py, se adjuntaron las tablas optimizadas de consulta y un archivo .txt que contenía las librerías a usar en cada consulta. Podrán acceder a la API deployada mediante el siguiente link:
 Link de Render: https://josepazosmlops.onrender.com
+notebooksPI/Render.png
