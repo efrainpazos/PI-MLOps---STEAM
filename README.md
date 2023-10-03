@@ -1,6 +1,9 @@
 # PI-MLOps---STEAM
 Proyecto Integrador de Data Engineer y machine learning para Henry
 El siguiente proyecto de Data Science para la institución educativa Henry, trata sobre general un modelo de recomendación de videojuegos usando los Algoritmos de Machine Learning y 5 funciones que permitan responder las preguntas de negocio más importantes
+
+![texto2](https://github.com/efrainpazos/PI-MLOps---STEAM/blob/57fd7808e6c3f00422f6bad7b91844023f416f5a/notebooksPI/Steam.jpeg)
+
 ## Fases
 Se detallarán las fases más importantes de lo que fue generar el modelo de recomendación para que pueda ser consumido por cualquier usuario mediante la app de render
 ### Proceso de ETL (Extraccion, transformacion y carga)
@@ -17,7 +20,11 @@ Devuelve 5 juegos más recomendados según un id asociado a un juego que se intr
 Para el análisis exploratorio de datos se establecieron los valores más importantes como medias, medianas, promedios, cuartiles. Asimismo, las relaciones que existen entre las variables más relevantes de todo el trabajo
 ### Creacion de la API
 Se creo una API mediante la librería FastApi, que permitió mediante la creación de un entorno virtual, saber cómo sería documentada con las funciones más importantes y el modelo de machine learning, acá se realizaron procesos que permitieron crear funciones de consulta optimizadas en un archivo final llamado main.py
+
+![texto3](https://github.com/efrainpazos/PI-MLOps---STEAM/blob/f1b24ce7c9e4dd058ba220c45b7812dab9f17065/notebooksPI/FASTapi.png)
+
 ### Deployement en Henry
 Ya con el script de la API en un archivo main.py, se adjuntaron las tablas optimizadas de consulta y un archivo .txt que contenía las librerías a usar en cada consulta. Podrán acceder a la API deployada mediante el siguiente link:
 Link de Render: https://josepazosmlops.onrender.com
-notebooksPI/Render.png
+
+![texto](https://github.com/efrainpazos/PI-MLOps---STEAM/blob/57fd7808e6c3f00422f6bad7b91844023f416f5a/notebooksPI/Render.png)
