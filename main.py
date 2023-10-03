@@ -2,6 +2,9 @@ from fastapi import FastAPI
 import uvicorn
 import json
 import pandas as pd
+import sklearn
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
 
 app =FastAPI()
 
@@ -10,6 +13,7 @@ agrupacionF2 = pd.read_csv('agrupacionF2.csv')
 agrupacionF3 = pd.read_csv('agrupacionF3.csv')
 agrupacionF4 = pd.read_csv('agrupacionF4.csv')
 agrupacionF5 = pd.read_csv('agrupacionF5.csv')
+agrupacionML1 = pd.read_csv('agrupacionML1.csv')
 
 @app.get("/")
 def read_root():
@@ -130,3 +134,38 @@ def funcion5(valorF5):
     else:
         textoF5 = "Ingrese fecha Correcta"
     return textoF5
+
+@app.get("/modeloDeRecomendacion/item_id")
+def funcionML1(item_id):
+    item_id = int(item_id) 
+    # Condicional si exite el numero de año
+    if item_id in agrupacionML1['item_id'].values :
+        # Filtrar el juego seleccionado por el ID de producto
+        juego_seleccionado = agrupacionML1[agrupacionML1['item_id'] == item_id]
+
+        # Obtener los géneros del juego seleccionado
+        generos_juego_seleccionado = juego_seleccionado['genres'].values[0]
+
+        # Filtrar los juegos que tienen géneros similares
+        juegos_similares = agrupacionML1[agrupacionML1['item_id'] != item_id]
+
+        # Utilizar TF-IDF para vectorizar los géneros de los juegos
+        tfidf_vectorizer = TfidfVectorizer()
+        tfidf_matrix = tfidf_vectorizer.fit_transform(juegos_similares['genres'])
+
+        # Calcular la similitud coseno entre los géneros del juego seleccionado y los demás juegos
+        similitudes = linear_kernel(tfidf_vectorizer.transform([generos_juego_seleccionado]), tfidf_matrix)
+
+        # Crear un DataFrame con las similaridades
+        similaridades_df = pd.DataFrame({'item_id': juegos_similares['item_id'], 'similitud': similitudes[0]})
+
+        # Ordenar los juegos por similitud y tomar los juegos más similares como recomendaciones
+        recomendaciones = similaridades_df.sort_values(by='similitud', ascending=False).head(5)
+
+        # Obtener los ID de los juegos recomendados
+        juegos_recomendados = recomendaciones['item_id'].tolist()
+        juegos_recomendados
+        nombres_asociados = agrupacionML1[agrupacionML1['item_id'].isin(juegos_recomendados)]['title'].unique().tolist()
+    else: 
+        nombres_asociados = "Introduce id valido"
+    return nombres_asociados
